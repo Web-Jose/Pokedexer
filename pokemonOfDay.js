@@ -27,15 +27,20 @@ function pokemonOfDay() {
 function displayPokemonOfDay(pokemon) {
   let card = document.getElementById("POTD-Card");
   let image = document.createElement("img");
+  image.classList.add("POTD-image");
   image.src = pokemon.image;
   image.alt = pokemon.name;
+  let numName = document.createElement("div");
+  numName.classList.add("POTD-idName");
   let number = document.createElement("span");
   number.textContent = `#${pokemon.number}`;
   let name = document.createElement("span");
-  name.textContent = pokemon.name;
+  name.textContent =
+    pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+  numName.appendChild(number);
+  numName.appendChild(name);
   card.appendChild(image);
-  card.appendChild(number);
-  card.appendChild(name);
+  card.appendChild(numName);
   card.addEventListener("click", () => {
     window.location.href = `${pokemon.name}`;
   });
