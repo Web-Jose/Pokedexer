@@ -18,8 +18,6 @@
 // Display card should be it's own function so that it can be reused in other parts of the application (Search, Favorites, etc.)
 const cards = document.querySelector(".Pokemon-Cards");
 
-const cards = document.querySelector(".Pokemon-Cards");
-
 async function pokemonCards() {
   let pokemonID = 1;
   let pokemonCount = 40;
