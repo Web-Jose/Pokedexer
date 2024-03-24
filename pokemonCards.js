@@ -18,50 +18,55 @@
 // Display card should be it's own function so that it can be reused in other parts of the application (Search, Favorites, etc.)
 const cards = document.querySelector(".Pokemon-Cards");
 
-function pokemonCards() {
+const cards = document.querySelector(".Pokemon-Cards");
+
+async function pokemonCards() {
   let pokemonID = 1;
   let pokemonCount = 40;
-  while (pokemonID <= pokemonCount && pokemonID <= 1025) {
-    let url = `https://pokeapi.co/api/v2/pokemon/${pokemonID}/`;
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        let pokemon = {
-          id: data.id,
-          name: data.name,
-          image: data.sprites.other.home.front_default,
-          types: data.types,
-        };
-        displayPokemon(pokemon);
-      })
-      .catch((error) => console.log(error));
-    pokemonID++;
+  for (; pokemonID <= pokemonCount && pokemonID <= 1025; pokemonID++) {
+    try {
+      let url = `https://pokeapi.co/api/v2/pokemon/${pokemonID}/`;
+      let response = await fetch(url);
+      let data = await response.json();
+      let pokemon = {
+        id: data.id,
+        name: data.name,
+        image: data.sprites.other.home.front_default,
+        types: data.types,
+      };
+      displayPokemon(pokemon);
+    } catch (error) {
+      console.log(error);
+    }
   }
-  window.addEventListener("scroll", () => {
+
+  window.addEventListener("scroll", async () => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
       pokemonID <= 1025
     ) {
-      pokemonCount += 20;
-      while (pokemonID <= pokemonCount) {
-        let url = `https://pokeapi.co/api/v2/pokemon/${pokemonID}/`;
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            let pokemon = {
-              id: data.id,
-              name: data.name,
-              image: data.sprites.other.home.front_default,
-              types: data.types,
-            };
-            displayPokemon(pokemon);
-          })
-          .catch((error) => console.log(error));
-        pokemonID++;
+      let newCount = pokemonCount + 20;
+      for (; pokemonID <= newCount && pokemonID <= 1025; pokemonID++) {
+        try {
+          let url = `https://pokeapi.co/api/v2/pokemon/${pokemonID}/`;
+          let response = await fetch(url);
+          let data = await response.json();
+          let pokemon = {
+            id: data.id,
+            name: data.name,
+            image: data.sprites.other.home.front_default,
+            types: data.types,
+          };
+          displayPokemon(pokemon);
+        } catch (error) {
+          console.log(error);
+        }
       }
+      pokemonCount = newCount;
     }
   });
 }
+
 function displayPokemon(pokemon) {
   let card = document.createElement("div");
   card.classList.add("Pokemon-Card");
