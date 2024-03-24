@@ -122,6 +122,7 @@ body {
 }
 .Pokemon-Types {
   display: flex;
+  justify-content: center;
   gap: 0.625em;
 }
 .normal-type,
@@ -220,7 +221,8 @@ body {
     flex-direction: row;
   }
   .Pokemon-ID-Name {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: left;
     gap: 0.5em;
   }
   .Pokemon-Image {
@@ -228,5 +230,6 @@ body {
   }
   .Pokemon-Types {
     flex-wrap: wrap;
+    width: 25%;
   }
 }
