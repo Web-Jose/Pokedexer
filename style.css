@@ -207,12 +207,12 @@ body {
 }
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .Pokemon-Cards {
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (max-width: 576px) {
+@media screen and (max-width: 425px) {
   .Pokemon-Cards {
     grid-template-columns: repeat(1, 1fr);
   }
