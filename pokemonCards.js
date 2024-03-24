@@ -38,11 +38,14 @@ async function pokemonCards() {
     }
   }
 
+let isLoading = false;
+
   window.addEventListener("scroll", async () => {
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight - 100 &&
-      pokemonID <= 1025
+      pokemonID <= 1025 && !isLoading
     ) {
+      isLoading = true;
       let newCount = pokemonCount + 20;
       for (; pokemonID <= newCount && pokemonID <= 1025; pokemonID++) {
         try {
@@ -61,6 +64,7 @@ async function pokemonCards() {
         }
       }
       pokemonCount = newCount;
+      isLoading = false;
     }
   });
 }
